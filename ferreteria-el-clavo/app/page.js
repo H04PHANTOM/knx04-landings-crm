@@ -2,44 +2,27 @@ import { site } from './site-data';
 import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const phoneHref = `tel:${site.phone}`;
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
-}
-
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
-}
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
+function Mark() {
+  return <a className="clavo-mark" href="#inicio" aria-label={`Inicio de ${site.name}`}><span>EL</span><strong>CLAVO</strong><small>ferretería · materiales</small></a>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
-  return (
-    <main className="site site-ferreteria-el-clavo" style={{ '--accent': site.accent }}>
+  return <main className="clavo-page" id="inicio">
+    <header className="clavo-header board"><Mark /><div className="clavo-utility"><span>LOCAL</span><span>DIRECTO</span><span>ÚTIL</span></div><nav><a href="#categorias">Categorías</a><a href="#reseñas">Reseñas</a><a href="#visita">Visita</a></nav><a className="clavo-call" href={phoneHref}>664 904 3265 ↗</a></header>
 
-      <header className="clavo-header shell" id="inicio"><Brand /><div className="clavo-utility"><span>LOCAL</span><span>DIRECTO</span><span>ÚTIL</span></div><a href="#categorias">Categorías ↗</a></header>
-      <section className="clavo-hero shell"><div className="clavo-copy"><p className="clavo-label">{site.category}</p><h1>La solución empieza con la pieza correcta.</h1><p>{site.intro}</p><a className="clavo-cta" href="#categorias">Buscar por categoría <span>↓</span></a></div><div className="clavo-shelf"><span>EL CLAVO</span><strong>materiales<br /><i>para resolver</i></strong><small>AV. GUADALAJARA 100B</small></div></section>
-      <section className="clavo-categories shell" id="categorias"><div className="clavo-heading"><p className="clavo-label">CATÁLOGO RÁPIDO</p><h2>¿Qué necesitas hoy?</h2></div><div className="clavo-grid">{site.highlights.concat(site.services).map((item,index)=><a className="clavo-card" key={item} href={phoneHref || mapUrl}><span>0{index+1}</span><h3>{item}</h3><p>Consulta existencia y precio en el local.</p><b>→</b></a>)}</div></section>
-      <section className="clavo-quote shell"><div><p className="clavo-label">COTIZACIÓN RÁPIDA</p><h2>Trae la medida. Sal con una respuesta.</h2><p>{site.address}</p><LocalNote /></div><ContactLinks label="Ferretería El Clavo" /></section><footer className="clavo-footer shell"><Brand compact /><span>Lo que necesitas para resolverlo hoy.</span></footer>
+    <section className="clavo-hero board"><div className="clavo-hero-copy"><p className="clavo-kicker">Ferretería · materiales · atención local</p><h1>Resuelve<br /><em>hoy.</em></h1><p>{site.intro}</p><div className="clavo-hero-actions"><a className="clavo-primary" href="#categorias">Ver categorías <span>↓</span></a><a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar ↗</a></div></div><figure className="clavo-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><figcaption>Foto pública · Av. Guadalajara 100 B</figcaption></figure></section>
 
-    </main>
-  );
+    <section className="clavo-facts board"><div><strong>10</strong><span>reseñas públicas</span></div><div><strong>9</strong><span>con cinco estrellas</span></div><div><strong>664</strong><span>904 3265</span></div><div><strong>100 B</strong><span>Av. Guadalajara</span></div></section>
+
+    <section className="clavo-categories board" id="categorias"><div className="clavo-categories-head"><p className="clavo-kicker">01 / Encuentra lo que buscas</p><h2>Pregunta por<br /><em>la pieza.</em></h2><p>La página funciona como un mostrador rápido: el cliente mira la categoría, llama y confirma existencia antes de salir.</p></div><div className="clavo-category-grid">{site.categories.map((category, index) => <article key={category.title}><span>0{index + 1}</span><h3>{category.title}</h3><p>{category.description}</p><a href={phoneHref}>Consultar ↗</a></article>)}</div></section>
+
+    <section className="clavo-shelves board" id="reseñas"><div className="clavo-shelves-photo"><img src={site.gallery[1].src} alt={site.gallery[1].alt} /><span>Foto pública de la ficha</span></div><div className="clavo-shelves-copy"><p className="clavo-kicker">02 / Compra local</p><h2>Buen trato.<br /><em>Buen precio.</em></h2><p>{site.reviewSummary}</p><a href={site.mapsProfile} target="_blank" rel="noreferrer">Leer reseñas en Maps ↗</a></div></section>
+
+    <section className="clavo-visit board" id="visita"><div><p className="clavo-kicker">03 / Pasa por aquí</p><h2>{site.address}</h2><p>{site.hours}</p><p className="clavo-note">Horario y existencia se confirman directamente con el local.</p></div><div className="clavo-visit-actions"><a href={mapUrl} target="_blank" rel="noreferrer">Google Maps ↗</a><a href={phoneHref}>Llamar ↗</a></div></section>
+    <footer className="clavo-footer board"><Mark /><span>Nombre mostrado como texto hasta validar el logo oficial con el negocio.</span></footer>
+  </main>;
 }

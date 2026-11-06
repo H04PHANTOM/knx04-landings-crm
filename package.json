@@ -1,10 +1,37 @@
 {
-  "name": "landing-fuel-coffee-bar",
+  "name": "knx04-landings-crm",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "cremina-bistro-cafe",
+    "tacos-varios-lia",
+    "floreria-yolanda",
+    "barberia-jr",
+    "tortilleria-milpar",
+    "panaderia-pasteleria-ensenada",
+    "pasteleria-don-pedro",
+    "fuel-coffee-bar",
+    "pollos-lopez",
+    "el-sazon-de-mary",
+    "pradera-el-cafe",
+    "veterinaria-baja-jr",
+    "blue-barber",
+    "carniceria-el-chaparral",
+    "ferreteria-el-clavo",
+    "los-cangrejos",
+    "cenaduria-casa-topete",
+    "la-super-torta",
+    "tacos-jalisco"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build:pages": "node scripts/build-pages.mjs",
+    "build:one": "next build",
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "serve": "^14.2.4"
   }
 }

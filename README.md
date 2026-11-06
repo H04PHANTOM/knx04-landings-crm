@@ -5,11 +5,11 @@ Sitios de producto independientes para las oportunidades en etapa **Propuesta** 
 ## Alcance
 
 - 19 proyectos, uno por negocio.
-- Cada sitio convierte la idea comercial del CRM en una experiencia utilizable: servicios, contacto, ubicación y llamados a la acción.
-- Contenido construido a partir de señales públicas consultadas el 5 de noviembre de 2026.
-- Las fichas muestran fuentes y una nota de confirmación: no son afirmaciones de necesidad, resultados ni autorización de uso de marca.
-- No se descargaron logos, fotografías ni menús de terceros. La marca visible es KNX04; los activos del negocio quedan pendientes de permiso y validación.
-- No hay envíos de WhatsApp, correo ni formularios conectados.
+- Cada sitio tiene una estructura visual propia según su giro: catálogo floral, reserva de barbería, menú de cafetería, carta nocturna, vitrina de panadería, catálogo de ferretería, agenda veterinaria, entre otras.
+- El contenido parte de señales públicas consultadas el 5 de noviembre de 2026. Las referencias sirvieron para definir patrones de navegación y conversión; no se copiaron interfaces ni fotografías.
+- La única marca gráfica de tercero verificada e integrada es el logotipo público de Barbería JR desde su propio sitio de reservas. En los demás sitios se usa un identificador tipográfico provisional hasta validar el logotipo oficial y su permiso de uso.
+- Los datos de horarios, teléfonos, menús, redes, imágenes y alcance deben confirmarse con cada negocio antes de convertir una vista en sitio de producción.
+- No hay envíos de WhatsApp, correo ni formularios conectados, ni datos de CRM/Supabase dentro de las páginas públicas.
 
 ## Desarrollo local
 

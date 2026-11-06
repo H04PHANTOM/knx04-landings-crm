@@ -2,44 +2,27 @@ import { site } from './site-data';
 import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const phoneHref = `tel:${site.phone}`;
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
-}
-
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
-}
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
+function Mark() {
+  return <a className="topete-mark" href="#inicio" aria-label={`Inicio de ${site.name}`}><span>CASA</span><strong>TOPETE</strong><small>cenaduría · tijuana</small></a>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
-  return (
-    <main className="site site-cenaduria-casa-topete" style={{ '--accent': site.accent }}>
+  return <main className="topete-page" id="inicio">
+    <header className="topete-header wrap"><Mark /><nav><a href="#cena">La carta</a><a href="#reseñas">Lo que dicen</a><a href="#visita">Visita</a></nav><a className="topete-call" href={phoneHref}>Llamar ↗</a></header>
 
-      <header className="topete-header shell" id="inicio"><Brand /><div className="topete-hours">JUE — SÁB<br /><strong>TARDE / NOCHE</strong></div><a href="#cena" className="topete-reserve">Ver la cena ↗</a></header>
-      <section className="topete-hero shell"><div className="topete-neon">CASA<br /><i>TOPETE</i></div><div className="topete-copy"><p className="topete-label">{site.category}</p><h1>La noche empieza con un plato humeando.</h1><p>{site.intro}</p><a className="topete-button" href="#cena">Entrar al menú <span>↓</span></a></div></section>
-      <section className="topete-cena shell" id="cena"><div className="topete-cena-head"><p className="topete-label">LA CENA</p><h2>Platillos para pedir al centro.</h2><span>Una carta nocturna, sin perderse.</span></div><div className="topete-board">{site.highlights.map((item,index)=><article key={item}><span>0{index+1}</span><h3>{item}</h3><p>{index === 0 ? 'Calientito y servido al momento.' : 'Un clásico de la casa para compartir.'}</p><a href={phoneHref || mapUrl}>Consultar ↗</a></article>)}</div></section>
-      <section className="topete-contact shell"><div><p className="topete-label">MESA Y MAPA</p><h2>{site.name}</h2><p>{site.address}</p><p>{site.phone || 'Teléfono por confirmar'}</p><LocalNote /></div><ContactLinks label="Casa Topete" /></section><footer className="topete-footer shell"><Brand compact /><span>La noche sabe a casa.</span></footer>
+    <section className="topete-hero wrap"><div className="topete-hero-copy"><p className="topete-eyebrow">JUEVES — SÁBADO · TARDE / NOCHE</p><h1>La noche<br /><em>sabe a casa.</em></h1><p>{site.intro}</p><div className="topete-actions"><a className="topete-primary" href="#cena">Ver la carta <span>↓</span></a><a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar ↗</a></div></div><figure className="topete-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><figcaption>Foto pública · Los Árboles</figcaption></figure></section>
 
-    </main>
-  );
+    <section className="topete-ribbon wrap"><div><strong>154</strong><span>reseñas en Maps</span></div><div><strong>5★</strong><span>129 reseñas con cinco estrellas</span></div><div><strong>664</strong><span>661 6926</span></div><div><strong>66</strong><span>Ave. Los Árboles</span></div></section>
+
+    <section className="topete-menu wrap" id="cena"><div className="topete-menu-head"><p className="topete-eyebrow">01 / Lo que sale</p><h2>Antojitos para<br /><em>compartir.</em></h2><p>La ficha pública menciona pozole, tostadas, sopes, enchiladas y quesadillas. La disponibilidad del día se confirma por teléfono.</p></div><div className="topete-menu-grid">{site.dishes.map((dish, index) => <article key={dish.title}><span>0{index + 1}</span><h3>{dish.title}</h3><p>{dish.description}</p><a href={phoneHref}>Consultar hoy ↗</a></article>)}</div></section>
+
+    <section className="topete-gallery wrap" id="reseñas"><div className="topete-gallery-note"><p className="topete-eyebrow">02 / La mesa</p><h2>Lo rico<br /><em>se comparte.</em></h2><p>{site.reviewSummary}</p><a href={site.mapsProfile} target="_blank" rel="noreferrer">Abrir reseñas en Maps ↗</a></div><div className="topete-gallery-grid"><figure><img src={site.gallery[1].src} alt={site.gallery[1].alt} /><figcaption>Foto pública de la ficha</figcaption></figure><figure><img src={site.gallery[2].src} alt={site.gallery[2].alt} /><figcaption>Foto publicada por clientes</figcaption></figure><figure><img src={site.gallery[3].src} alt={site.gallery[3].alt} /><figcaption>Foto pública de platillo</figcaption></figure></div></section>
+
+    <section className="topete-visit wrap" id="visita"><div><p className="topete-eyebrow">03 / Encuentra la casa</p><h2>{site.address}</h2><p>{site.hours}</p><p className="topete-note">Confirma horario y platillo del día antes de salir.</p></div><div className="topete-visit-actions"><a href={mapUrl} target="_blank" rel="noreferrer">Google Maps ↗</a><a href={phoneHref}>664 661 6926 ↗</a></div></section>
+    <footer className="topete-footer wrap"><Mark /><span>Nombre mostrado como texto hasta validar el logo oficial con el negocio.</span></footer>
+  </main>;
 }

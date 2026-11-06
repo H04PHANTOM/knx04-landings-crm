@@ -3,43 +3,46 @@ import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
 const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
+function Brand() {
+  return <a className="milpar-brand" href="#inicio" aria-label={`Inicio de ${site.name}`}>
+    <span className="milpar-mark" aria-hidden="true">M</span>
+    <span><b>{site.name}</b><small>{site.category}</small></span>
+  </a>;
 }
 
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
-}
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
+function ActionLinks() {
+  return <div className="milpar-actions">
+    <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
+    {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
+    {site.socialUrl && <a href={site.socialUrl} target="_blank" rel="noreferrer">Instagram <span>↗</span></a>}
+  </div>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
-  return (
-    <main className="site site-tortilleria-milpar" style={{ '--accent': site.accent }}>
+  return <main className="milpar-site" id="inicio">
+    <header className="milpar-top shell">
+      <Brand />
+      <nav><a href="#productos">Productos</a><a href="#local">El local</a><a className="milpar-pill" href={mapUrl} target="_blank" rel="noreferrer">Visítanos ↗</a></nav>
+    </header>
 
-      <header className="milpar-header shell" id="inicio"><Brand /><span className="milpar-steam">☼ recién hecho</span><a href="#sabor">Sabor ↗</a></header>
-      <section className="milpar-hero shell"><div className="milpar-copy"><p className="milpar-label">{site.category}</p><h1>La tortilla todavía puede ser el centro.</h1><p>{site.intro}</p><a className="milpar-cta" href="#sabor">Ver lo de hoy <span>↓</span></a></div><div className="milpar-comal"><span>MILPAR</span><strong>tortilla<br /><i>de diario</i></strong><small>sopes · tamales · antojitos</small></div></section>
-      <section className="milpar-sabor shell" id="sabor"><div className="milpar-title"><p className="milpar-label">DEL COMAL</p><h2>Lo que sale caliente.</h2></div><div className="milpar-grid">{site.highlights.concat(site.services).map((item,index)=><article key={item}><span>0{index+1}</span><h3>{item}</h3><p>{index%2===0?'Para llevar a la mesa.':'Pregunta por lo preparado del día.'}</p><a href={phoneHref || mapUrl}>Consultar ↗</a></article>)}</div></section>
-      <section className="milpar-find shell"><div><p className="milpar-label">PASA POR AQUÍ</p><h2>{site.name}</h2><p>{site.address}</p><LocalNote /></div><ContactLinks label="Tortillería Milpar" /></section><footer className="milpar-footer shell"><Brand compact /><span>El sabor de todos los días.</span></footer>
+    <section className="milpar-hero shell">
+      <div className="milpar-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><span>En Las Huertas · Tijuana</span></div>
+      <div className="milpar-hero-copy"><p className="eyebrow">{site.category}</p><h1>Tortilla caliente.<br /><em>Comida que reúne.</em></h1><p>{site.intro}</p><div className="milpar-hero-actions"><a className="milpar-primary" href="#productos">Ver productos <span>↓</span></a><a className="milpar-text-link" href={mapUrl} target="_blank" rel="noreferrer">Abrir Maps ↗</a></div></div>
+    </section>
 
-    </main>
-  );
+    <section className="milpar-proof shell"><div><strong>{site.rating}</strong><span>★ en Google Maps</span></div><div><strong>{site.reviewCount}</strong><span>reseñas públicas</span></div><div><strong>664</strong><span>103 6641</span></div><div><strong>07:00</strong><span>apertura estimada</span></div></section>
+
+    <section className="milpar-products shell" id="productos">
+      <div className="milpar-section-head"><div><p className="eyebrow">Del mostrador</p><h2>Lo que puedes llevar hoy</h2></div><p>Consulta disponibilidad y prepara tu visita. La ficha pública también muestra servicio a domicilio.</p></div>
+      <div className="milpar-menu-grid">{site.menuGroups.map((group) => <article className="milpar-menu-card" key={group.title}><span className="milpar-menu-index">{group.number}</span><h3>{group.title}</h3><p>{group.description}</p><ul>{group.items.map((item) => <li key={item}><span>{item}</span><b>●</b></li>)}</ul><a href={phoneHref || mapUrl} target={phoneHref ? undefined : '_blank'} rel={phoneHref ? undefined : 'noreferrer'}>Consultar disponibilidad ↗</a></article>)}</div>
+    </section>
+
+    <section className="milpar-gallery shell"><div className="milpar-gallery-main"><img src={site.gallery[1].src} alt={site.gallery[1].alt} /><p>Lo recién preparado se ve mejor en persona.</p></div><div className="milpar-gallery-note"><p className="eyebrow">Una parada de barrio</p><h2>Pasas por tortillas.<br /><em>Te quedas por el antojo.</em></h2><p>{site.deliveryNote}</p><a href={mapUrl} target="_blank" rel="noreferrer">Ver ubicación exacta ↗</a></div></section>
+
+    <section className="milpar-local shell" id="local"><div><p className="eyebrow">Encuéntranos</p><h2>{site.name}</h2><p>{site.address}</p><p className="milpar-hours">{site.hours}</p></div><ActionLinks /></section>
+    <footer className="milpar-footer shell"><Brand /><span>Información pública · confirmar horarios y productos antes de entregar.</span></footer>
+  </main>;
 }

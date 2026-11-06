@@ -1,10 +1,11 @@
 # KNX04 · Landings CRM
 
-Propuestas independientes para las oportunidades en etapa **Propuesta** del CRM. Cada carpeta es una aplicación Next.js con React y JavaScript, exportable como sitio estático.
+Sitios de producto independientes para las oportunidades en etapa **Propuesta** del CRM. Cada carpeta es una aplicación Next.js con React y JavaScript, exportable como sitio estático.
 
 ## Alcance
 
 - 19 proyectos, uno por negocio.
+- Cada sitio convierte la idea comercial del CRM en una experiencia utilizable: servicios, contacto, ubicación y llamados a la acción.
 - Contenido construido a partir de señales públicas consultadas el 5 de noviembre de 2026.
 - Las fichas muestran fuentes y una nota de confirmación: no son afirmaciones de necesidad, resultados ni autorización de uso de marca.
 - No se descargaron logos, fotografías ni menús de terceros. La marca visible es KNX04; los activos del negocio quedan pendientes de permiso y validación.
@@ -21,7 +22,7 @@ Para levantar una propuesta en Docker: `docker compose up --build cremina-bistro
 
 ## Publicación
 
-`npm run build:pages` construye cada proyecto con su propia ruta y genera `dist/` con un índice. El workflow de GitHub Pages queda en `.github/workflows/pages.yml`; la publicación requiere un repositorio y permisos de Pages definidos por la cuenta.
+`npm run build:pages` construye cada proyecto con su propia ruta y genera `dist/` con un menú. En GitHub Pages, el workflow calcula automáticamente el prefijo del repositorio para que los estilos, scripts y recursos de cada sitio carguen correctamente.
 
 ## Siguiente revisión comercial
 

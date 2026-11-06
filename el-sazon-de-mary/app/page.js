@@ -2,44 +2,27 @@ import { site } from './site-data';
 import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const phoneHref = `tel:${site.phone}`;
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
-}
-
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
-}
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
+function Wordmark() {
+  return <a className="sazon-wordmark" href="#inicio" aria-label={`Inicio de ${site.name}`}><span>EL SAZÓN</span><strong>de Mary</strong><small>antojitos mexicanos</small></a>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
-  return (
-    <main className="site site-el-sazon-de-mary" style={{ '--accent': site.accent }}>
+  return <main className="sazon-page" id="inicio">
+    <header className="sazon-header shell"><Wordmark /><div className="sazon-rating"><strong>{site.rating}</strong><span>★ · {site.reviewCount} reseñas</span></div><nav><a href="#menu">Menú</a><a href="#reseñas">Reseñas</a><a href="#visita">Visita</a></nav><a className="sazon-phone" href={phoneHref}>Llamar ↗</a></header>
 
-      <header className="sazon-header shell" id="inicio"><Brand /><span className="sazon-stamp">HECHO EN CASA</span><a href="#menu">Menú de hoy ↓</a></header>
-      <section className="sazon-hero shell"><div className="sazon-copy"><p className="sazon-label">{site.category}</p><h1>Cuando el plato sabe a volver.</h1><p>{site.intro}</p><div><a className="sazon-red" href="#menu">Ver menú</a><a className="sazon-link" href={phoneHref || mapUrl}>Pedir información ↗</a></div></div><div className="sazon-kitchen"><span>MARY</span><strong>cocina<br />del día</strong><small>CALDO · POLLO · BISTEC</small></div></section>
-      <section className="sazon-menu shell" id="menu"><div className="sazon-menu-title"><span>MENÚ</span><h2>Lo que sale de la cocina.</h2><p>Consulta disponibilidad antes de ordenar.</p></div><div className="sazon-dishes">{site.highlights.concat(site.services).map((item, index) => <article key={item}><span className="dish-index">0{index + 1}</span><h3>{item}</h3><p>{index % 2 === 0 ? 'Plato del día · para llevar o comer aquí.' : 'Una opción para acompañar la comida.'}</p><a href={phoneHref || mapUrl}>Consultar ↗</a></article>)}</div></section>
-      <section className="sazon-order shell"><div><p className="sazon-label">ORDENA SIN RODEOS</p><h2>Elige, llama, pasa por él.</h2><p>{site.address}</p></div><ContactLinks label="Pedido y ubicación" /></section><footer className="sazon-footer shell"><Brand compact /><span>Comida mexicana para volver.</span></footer>
+    <section className="sazon-hero shell"><div className="sazon-hero-copy"><p className="sazon-kicker">{site.category}</p><h1>Comida que<br /><em>sabe a casa.</em></h1><p>{site.intro}</p><div className="sazon-hero-actions"><a className="sazon-primary" href="#menu">Abrir menú <span>↓</span></a><a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar ↗</a></div></div><div className="sazon-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><span>Foto pública · Fortín de las Flores</span></div></section>
 
-    </main>
-  );
+    <section className="sazon-facts shell"><div><strong>4.4</strong><span>Google Maps</span></div><div><strong>99</strong><span>reseñas públicas</span></div><div><strong>$100—200</strong><span>por persona</span></div><div><strong>07:30</strong><span>abre la cocina</span></div></section>
+
+    <section className="sazon-menu shell" id="menu"><div className="sazon-menu-intro"><p className="sazon-kicker">01 / La carta</p><h2>Hoy se come<br /><em>como en casa.</em></h2><p>La ficha pública muestra consumo en el lugar, para llevar y entrega a domicilio. Los nombres del menú se presentan como guía para confirmar el plato del día.</p></div><div className="sazon-dish-list">{site.dishes.map((dish, index) => <article key={dish.title}><span>0{index + 1}</span><div><h3>{dish.title}</h3><p>{dish.description}</p></div><a href={phoneHref}>Preguntar ↗</a></article>)}</div></section>
+
+    <section className="sazon-table shell"><div className="sazon-table-photo"><img src={site.gallery[1].src} alt={site.gallery[1].alt} /><span>Foto pública de la ficha</span></div><div className="sazon-table-copy"><p className="sazon-kicker">02 / La mesa</p><h2>Un plato caliente<br /><em>y cero rodeos.</em></h2><p>{site.reviewSummary}</p><a href={site.mapsProfile} target="_blank" rel="noreferrer">Leer las reseñas de Maps ↗</a></div></section>
+
+    <section className="sazon-visit shell" id="visita"><div><p className="sazon-kicker">03 / Ven a comer</p><h2>{site.address}</h2><p>{site.hours}</p><p className="sazon-note">Consumo en el lugar, para llevar y entrega aparecen en la ficha pública; confirma cobertura y horarios antes de publicar.</p></div><div className="sazon-visit-actions"><a href={mapUrl} target="_blank" rel="noreferrer">Google Maps ↗</a><a href={phoneHref}>664 650 4269 ↗</a></div></section>
+    <footer className="sazon-footer shell"><Wordmark /><span>Nombre mostrado como texto hasta validar el logo oficial con el negocio.</span></footer>
+  </main>;
 }

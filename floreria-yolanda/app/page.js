@@ -1,54 +1,37 @@
 import { site } from './site-data';
 import './globals.css';
 
-const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const mapUrl = 'https://www.google.com.mx/maps/place/FLORERIA+Yolanda/@32.4942354,-116.9591317,787m/data=!3m2!1e3!4b1!4m6!3m5!1s0x80d9386b78e448db:0xd4d9771108f3b781!8m2!3d32.4942354!4d-116.9591317!16s%2Fg%2F1wfvmylt?entry=ttu';
+const phoneHref = `tel:${site.phone}`;
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
+export const metadata = { title: site.name, description: site.intro };
+
+function Mark() {
+  return <a className="yolanda-mark" href="#inicio" aria-label={`Inicio de ${site.name}`}><strong>FLORERÍA</strong><b>Yolanda</b><small>flores · regalos · entrega</small></a>;
 }
 
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
+function ArrowLink({ href, children, external = false, className = '' }) {
+  return <a className={`yolanda-link ${className}`.trim()} href={href} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}>{children}<span aria-hidden="true">↗</span></a>;
 }
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
-}
-
-export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
   return (
-    <main className="site site-floreria-yolanda" style={{ '--accent': site.accent }}>
+    <main className="yolanda-site" id="inicio">
+      <header className="yolanda-header"><Mark /><nav aria-label="Navegación principal"><a href="#catalogo">Catálogo</a><a href="#ocasiones">Ocasiones</a><a href="#pedido">Cómo pedir</a><a href="#visita">Visítanos</a></nav><a className="yolanda-call" href={phoneHref}>664 686 0334</a></header>
 
-      <header className="flor-header shell" id="inicio">
-        <Brand />
-        <nav><a href="#ocasiones">Ocasiones</a><a href="#catalogo">Arreglos</a><a href="#visita">Visítanos</a></nav>
-        <a className="flor-pill" href={phoneHref || mapUrl}>{phoneHref ? 'Encargar por teléfono' : 'Ver ubicación'}</a>
-      </header>
-      <section className="flor-hero shell">
-        <div className="flor-hero-copy"><p className="flor-kicker">{site.category}</p><h1>Un detalle que llega antes que las palabras.</h1><p>{site.intro}</p><div className="flor-actions"><a className="flor-primary" href="#catalogo">Explorar arreglos</a><a className="flor-secondary" href={mapUrl} target="_blank" rel="noreferrer">Encontrar la florería</a></div></div>
-        <div className="flor-still" aria-label="Composición visual de flores"><span className="flor-stem stem-a" /><span className="flor-stem stem-b" /><span className="flor-bloom bloom-a" /><span className="flor-bloom bloom-b" /><span className="flor-bloom bloom-c" /><div><small>YOLANDA</small><strong>flores para hoy</strong></div></div>
-      </section>
-      <section className="flor-occasion shell" id="ocasiones"><div><p className="flor-kicker">Elige el gesto</p><h2>Una ocasión, un arreglo.</h2></div><div className="flor-occasion-grid">{site.highlights.map((item, index) => <article key={item}><span>0{index + 1}</span><h3>{item}</h3><p>Consulta combinaciones, tamaño y disponibilidad del día.</p></article>)}</div></section>
-      <section className="flor-catalog shell" id="catalogo"><div className="flor-catalog-head"><div><p className="flor-kicker">Vitrina local</p><h2>Lo que puedes pedir</h2></div><span>Ramos · arreglos · regalos</span></div><div className="flor-product-grid">{site.services.map((service, index) => <article key={service} className={`flor-product flor-product-${index + 1}`}><span className="flor-product-number">0{index + 1}</span><h3>{service}</h3><p>{index === 0 ? 'Una selección para consultar por teléfono y preparar con la florería.' : 'Un complemento para que el pedido y la visita sean más sencillos.'}</p><a href={phoneHref || mapUrl}>{phoneHref ? 'Consultar disponibilidad' : 'Preguntar en el local'} ↗</a></article>)}</div></section>
-      <section className="flor-visit shell" id="visita"><div><p className="flor-kicker">Pasa por aquí</p><h2>{site.name}</h2><p>{site.address}</p><LocalNote /></div><ContactLinks label="Visita y pedido" /></section>
-      <footer className="flor-footer shell"><Brand compact /><span>Flores, regalos y atención local.</span></footer>
+      <section className="yolanda-hero" aria-labelledby="yolanda-title"><div className="yolanda-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><div><span>FOTO PÚBLICA · LAS HUERTAS</span><b>Un detalle que<br />sí llega.</b><small>Confirmar atribución antes de publicar</small></div></div><div className="yolanda-hero-copy"><p className="yolanda-kicker">FLORERÍA LOCAL · TIJUANA</p><h1 id="yolanda-title">Flores para<br /><em>decirlo bonito.</em></h1><p>Una vitrina rápida para elegir una ocasión, consultar disponibilidad y llegar al local sin perder la dirección.</p><div className="yolanda-hero-actions"><a className="yolanda-primary" href="#catalogo">Ver arreglos</a><ArrowLink href={mapUrl} external>Cómo llegar</ArrowLink></div><div className="yolanda-hero-facts"><span><b>4.0</b> 23 reseñas públicas</span><span><b>10–19 h</b> lun–sáb</span><span><b>Local 1</b> Las Huertas 4ta Secc.</span></div></div></section>
 
+      <section className="yolanda-occasion-strip" id="ocasiones" aria-label="Ocasiones para pedir flores">{site.occasions.map((occasion, index) => <a key={occasion.title} href="#catalogo"><span>0{index + 1}</span><b>{occasion.title}</b><small>{occasion.detail}</small></a>)}</section>
+
+      <section className="yolanda-catalog" id="catalogo" aria-labelledby="catalog-title"><div className="yolanda-catalog-head"><div><p className="yolanda-kicker">FOTOS DE LA FICHA PÚBLICA</p><h2 id="catalog-title">Mira el arreglo<br /><em>antes de llamar.</em></h2></div><p>La disponibilidad se confirma por teléfono. Estas imágenes son referencia pública del trabajo que aparece en la ficha del negocio.</p></div><div className="yolanda-catalog-grid">{site.gallery.slice(1).map((photo, index) => <figure key={photo.src} className={`yolanda-product product-${index + 1}`}><img src={photo.src} alt={photo.alt} loading="lazy" /><figcaption><span>0{index + 1}</span><div><b>{photo.title}</b><small>{photo.caption}</small></div><ArrowLink href={phoneHref}>Consultar</ArrowLink></figcaption></figure>)}</div></section>
+
+      <section className="yolanda-order" id="pedido" aria-labelledby="order-title"><div className="yolanda-order-lead"><p className="yolanda-kicker">PEDIDO LOCAL</p><h2 id="order-title">Tres pasos,<br /><em>un gesto.</em></h2><p>La ficha pública indica servicio a domicilio y atención en el local. El canal final se confirma directamente con la florería.</p><ArrowLink href={phoneHref}>Llamar para disponibilidad</ArrowLink></div><ol className="yolanda-order-list"><li><span>01</span><div><b>Elige la ocasión</b><small>cumpleaños, aniversario, condolencia o “porque sí”.</small></div></li><li><span>02</span><div><b>Pregunta por el día</b><small>flores, color, tamaño y recipiente disponibles.</small></div></li><li><span>03</span><div><b>Recíbelo o pasa por él</b><small>la ficha pública menciona entrega a domicilio.</small></div></li></ol></section>
+
+      <section className="yolanda-reviews" aria-labelledby="reviews-title"><div><p className="yolanda-kicker">LO QUE YA DICEN</p><h2 id="reviews-title">La gente<br /><em>sí vuelve.</em></h2><ArrowLink href={mapUrl} external>Ver reseñas en Google Maps</ArrowLink></div><div className="yolanda-review-wall">{site.reviews.map((review) => <blockquote key={review.text}><span>“</span><p>{review.text}</p><footer>{review.meta}</footer></blockquote>)}</div></section>
+
+      <section className="yolanda-visit" id="visita" aria-labelledby="visit-title"><div><p className="yolanda-kicker">PASA POR EL LOCAL</p><h2 id="visit-title">Florería<br /><em>Yolanda.</em></h2><p>{site.address}</p><small>{site.hours}</small><div className="yolanda-visit-links"><ArrowLink href={mapUrl} external className="yolanda-map-button">Abrir Google Maps</ArrowLink><ArrowLink href={phoneHref}>Llamar</ArrowLink></div></div><a className="yolanda-map" href={mapUrl} target="_blank" rel="noreferrer" aria-label="Abrir la ubicación de Florería Yolanda en Google Maps"><span className="map-road road-a" /><span className="map-road road-b" /><span className="map-pin" /><div><b>Blvd. Gustavo Díaz Ordaz · Local 1</b><span>Las Huertas 4ta Secc.</span><small>Ver ruta ↗</small></div></a></section>
+
+      <footer className="yolanda-footer"><Mark /><span>Fotos y datos públicos consultados para esta vista; confirmar logo oficial, catálogo y autorización antes de la entrega.</span><a href="#inicio">↑</a></footer>
     </main>
   );
 }

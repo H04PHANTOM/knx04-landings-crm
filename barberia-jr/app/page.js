@@ -2,44 +2,107 @@ import { site } from './site-data';
 import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const bookingUrl = site.website;
 
-function Brand({ compact = false }) {
+function Logo({ compact = false }) {
   return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
+    <a className={`jr-logo ${compact ? 'jr-logo-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
+      <img src={site.logoUrl} alt={`Logo oficial de ${site.name}`} />
+      <span><b>{site.name}</b><small>BARBERÍA · AGENDA</small></span>
     </a>
   );
 }
 
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
+function ArrowLink({ href, children, external = false, tone = 'gold' }) {
+  return <a className={`jr-link jr-link-${tone}`} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>{children}<span aria-hidden="true">↗</span></a>;
 }
 
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
-}
-
-export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
+export const metadata = { title: site.name, description: site.intro };
 
 export default function Page() {
+  const serviceItems = [
+    { label: site.highlights[0], note: 'Elige el estilo y llega con una idea clara.', mark: '01' },
+    { label: site.highlights[1], note: 'Detalles que completan el servicio.', mark: '02' },
+    { label: 'Agenda en línea', note: 'Revisa disponibilidad en el sitio oficial.', mark: '03' },
+  ];
+
   return (
-    <main className="site site-barberia-jr" style={{ '--accent': site.accent }}>
+    <main className="jr-site" id="inicio">
+      <div className="jr-utility">
+        <span>Tijuana · Barbería JR</span>
+        <span className="jr-utility-middle">Agenda pública disponible en el sitio oficial</span>
+        <a href={bookingUrl} target="_blank" rel="noreferrer">Abrir agenda ↗</a>
+      </div>
 
-      <div className="jr-wrap" id="inicio"><header className="jr-header"><Brand /><span className="jr-chip">RESERVAS ABIERTAS</span><a href={phoneHref || '#reservar'} className="jr-small-link">{phoneHref ? 'Llamar' : 'Ver servicios'} ↗</a></header>
-      <section className="jr-hero"><div className="jr-hero-copy"><p className="jr-eyebrow">{site.category}</p><h1>Tu siguiente corte, elegido en dos minutos.</h1><p>{site.intro}</p><a className="jr-cta" href="#reservar">Elegir servicio <span>→</span></a></div><div className="jr-portrait"><div className="jr-monogram">JR</div><p>Barbería JR</p><small>corte · barba · detalle</small></div></section>
-      <section className="jr-book" id="reservar"><div className="jr-progress"><span className="active"><b>01</b> Servicio</span><span><b>02</b> Agenda</span><span><b>03</b> Confirmación</span></div><div className="jr-book-grid"><div><p className="jr-eyebrow">Elige tu servicio</p><h2>Primero el look.</h2><div className="jr-service-list">{site.highlights.concat(site.services).map((item, index) => <a key={item} href={phoneHref || mapUrl} className="jr-service"><span className="jr-icon">{['✂','◉','✦','＋','◌'][index % 5]}</span><strong>{item}</strong><span>Consultar ↗</span></a>)}</div></div><aside className="jr-sidecard"><span className="jr-side-label">Antes de venir</span><h3>Guarda la dirección y llega con tiempo.</h3><p>{site.address}</p><a href={mapUrl} target="_blank" rel="noreferrer">Abrir mapa →</a><LocalNote /></aside></div></section>
-      <footer className="jr-footer"><Brand compact /><ContactLinks label="Barbería JR" /></footer></div>
+      <header className="jr-nav">
+        <Logo />
+        <nav aria-label="Navegación principal">
+          <a href="#servicios">Servicios</a>
+          <a href="#ritual">La experiencia</a>
+          <a href="#agenda">Agenda</a>
+          <a href="#visitanos">Visítanos</a>
+        </nav>
+        <a className="jr-nav-button" href={bookingUrl} target="_blank" rel="noreferrer">Reservar cita</a>
+      </header>
 
+      <section className="jr-hero" aria-labelledby="hero-title">
+        <div className="jr-hero-visual" style={{ backgroundImage: `url(${site.heroImage})` }}>
+          <div className="jr-hero-shade" />
+          <div className="jr-hero-mark"><img src={site.logoUrl} alt="" /><span>ESTILO<br />CON FIRMA</span></div>
+          <span className="jr-hero-caption">Corte · barba · detalle</span>
+        </div>
+        <div className="jr-hero-copy">
+          <p className="jr-overline">Barbería JR / 01</p>
+          <h1 id="hero-title">Una cita.<br /><em>Un corte.</em><br />Tu firma.</h1>
+          <p className="jr-hero-intro">{site.intro} Aquí el recorrido comienza con el servicio correcto y termina con un look que se siente tuyo.</p>
+          <div className="jr-hero-actions">
+            <a className="jr-primary" href={bookingUrl} target="_blank" rel="noreferrer">Elegir horario <span>→</span></a>
+            <ArrowLink href="#servicios" tone="ink">Ver servicios</ArrowLink>
+          </div>
+          <div className="jr-proof-row"><span><b>01</b> Agenda oficial</span><span><b>02</b> Atención en local</span></div>
+        </div>
+      </section>
+
+      <section className="jr-service-section" id="servicios" aria-labelledby="service-title">
+        <div className="jr-section-intro">
+          <p className="jr-overline">Elige tu momento</p>
+          <h2 id="service-title">Lo esencial,<br /><em>bien hecho.</em></h2>
+          <p>Si ya sabes qué quieres, entra directo a la agenda. Si todavía estás decidiendo, guarda esta guía y consúltala al llegar.</p>
+          <ArrowLink href={bookingUrl} external>Consultar agenda oficial</ArrowLink>
+        </div>
+        <div className="jr-service-board">
+          {serviceItems.map((item) => (
+            <a className="jr-service-row" key={item.label} href={bookingUrl} target="_blank" rel="noreferrer">
+              <span className="jr-service-num">{item.mark}</span>
+              <span className="jr-service-name"><b>{item.label}</b><small>{item.note}</small></span>
+              <span className="jr-service-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+          <div className="jr-service-note"><span>JR</span><p>La disponibilidad, horarios y detalles se consultan directamente en la agenda oficial.</p></div>
+        </div>
+      </section>
+
+      <section className="jr-ritual" id="ritual" aria-labelledby="ritual-title">
+        <div className="jr-ritual-copy">
+          <p className="jr-overline">La experiencia</p>
+          <h2 id="ritual-title">Llegas con una idea.<br /><em>Sales con tu estilo.</em></h2>
+          <p>Una barbería se disfruta en el detalle: la conversación, la herramienta correcta y el tiempo para dejar el acabado en su punto.</p>
+          <div className="jr-ritual-list"><span><b>01</b> Define tu servicio</span><span><b>02</b> Reserva tu horario</span><span><b>03</b> Llega al local</span></div>
+        </div>
+        <div className="jr-ritual-card"><img src={site.logoUrl} alt="Logo oficial de Barbería JR" /><span>J R</span><small>BARBERÍA JR · TIJUANA</small></div>
+      </section>
+
+      <section className="jr-booking" id="agenda" aria-labelledby="booking-title">
+        <div><p className="jr-overline">Tu próxima visita</p><h2 id="booking-title">La agenda está<br /><em>en un solo lugar.</em></h2><p>Consulta disponibilidad, elige tu servicio y continúa en el sitio oficial de Barbería JR.</p></div>
+        <div className="jr-booking-panel"><span className="jr-panel-index">03 / AGENDA</span><strong>Barbería JR</strong><span>Reservas en línea · sitio oficial</span><a className="jr-primary" href={bookingUrl} target="_blank" rel="noreferrer">Abrir agenda <span>→</span></a></div>
+      </section>
+
+      <section className="jr-visit" id="visitanos" aria-labelledby="visit-title">
+        <div className="jr-visit-copy"><p className="jr-overline">Visítanos</p><h2 id="visit-title">Tijuana,<br /><em>nos vemos en la silla.</em></h2><p>{site.address}. La ubicación exacta y los horarios se confirman en la agenda oficial antes de salir.</p><ArrowLink href={mapUrl} external>Cómo llegar en Google Maps</ArrowLink><small className="jr-disclaimer">Información pública consultada; confirmar datos directamente con el local.</small></div>
+        <div className="jr-map-card" aria-label="Mapa de referencia de Barbería JR"><div className="jr-map-grid" /><span className="jr-map-pin">JR</span><span className="jr-map-label">Tijuana · Barbería JR</span><span className="jr-map-road road-one" /><span className="jr-map-road road-two" /></div>
+      </section>
+
+      <footer className="jr-footer"><Logo compact /><div className="jr-footer-links"><a href="#servicios">Servicios</a><a href={bookingUrl} target="_blank" rel="noreferrer">Agenda oficial</a><a href={mapUrl} target="_blank" rel="noreferrer">Mapa</a></div><span>© Barbería JR</span></footer>
     </main>
   );
 }

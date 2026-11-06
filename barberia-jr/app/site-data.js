@@ -9,6 +9,7 @@ export const site = {
   "email": "",
   "website": "https://citasbarberiajr.online/",
   "logoUrl": "https://citasbarberiajr.online/images/logo.png?v=2",
+  "heroImage": "https://citasbarberiajr.online/images/login-bg.jpg",
   "social": "Perfil social por confirmar",
   "hours": "Consulta la agenda en el sitio oficial de citas.",
   "highlights": [

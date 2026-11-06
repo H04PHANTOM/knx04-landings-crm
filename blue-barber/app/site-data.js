@@ -3,7 +3,7 @@ export const site = {
   "name": "Blue Barber",
   "category": "Barbería · Estilo",
   "tag": "Un corte con identidad propia.",
-  "intro": "Una propuesta visual para mostrar trabajos, servicios y la forma más rápida de reservar.",
+  "intro": "Un escaparate visual para mostrar trabajos, servicios y la forma más rápida de reservar.",
   "address": "Av. Guadalajara 7018, Tijuana",
   "phone": "",
   "email": "",
@@ -27,5 +27,5 @@ export const site = {
   ],
   "accent": "#4EA5D9",
   "basePath": process.env.NEXT_PUBLIC_BASE_PATH || '',
-  "demoLabel": "Vista previa de propuesta · datos públicos por confirmar antes de publicar"
+  "demoLabel": "Sitio inicial basado en información pública · confirmar datos antes de la entrega"
 };

@@ -3,7 +3,7 @@ export const site = {
   "name": "Tacos Varios Lia",
   "category": "Comida casera · Tacos",
   "tag": "Lo que se antoja, visible en un solo lugar.",
-  "intro": "Una propuesta de menú móvil para que la gente vea opciones, ubicación y cómo pedir antes de llegar.",
+  "intro": "Un menú móvil para que la gente vea opciones, ubicación y cómo pedir antes de llegar.",
   "address": "Av. Las Brisas 15864, Tijuana",
   "phone": "",
   "email": "",
@@ -31,5 +31,5 @@ export const site = {
   ],
   "accent": "#FFB000",
   "basePath": process.env.NEXT_PUBLIC_BASE_PATH || '',
-  "demoLabel": "Vista previa de propuesta · datos públicos por confirmar antes de publicar"
+  "demoLabel": "Sitio inicial basado en información pública · confirmar datos antes de la entrega"
 };

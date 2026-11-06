@@ -2,44 +2,27 @@ import { site } from './site-data';
 import './globals.css';
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-const phoneHref = site.phone ? `tel:${site.phone}` : null;
-const websiteHref = site.website && site.website.startsWith('http') ? site.website : null;
-const initials = site.name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const phoneHref = `tel:${site.phone}`;
 
-function Brand({ compact = false }) {
-  return (
-    <a className={`brand-lockup ${compact ? 'brand-lockup-compact' : ''}`} href="#inicio" aria-label={`Inicio de ${site.name}`}>
-      {site.logoUrl ? <img src={site.logoUrl} alt={`Logo de ${site.name}`} /> : <span className="brand-initials" aria-hidden="true">{initials}</span>}
-      <span><strong>{site.name}</strong><small>{site.category}</small></span>
-    </a>
-  );
-}
-
-function ContactLinks({ label = 'Contacto' }) {
-  return (
-    <div className="contact-links" aria-label={label}>
-      <a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar <span>↗</span></a>
-      {phoneHref && <a href={phoneHref}>Llamar <span>↗</span></a>}
-      {websiteHref && <a href={websiteHref} target="_blank" rel="noreferrer">Sitio actual <span>↗</span></a>}
-    </div>
-  );
-}
-
-function LocalNote() {
-  return <p className="local-note">Horarios y disponibilidad: confirmar directamente con el local.</p>;
+function Mark() {
+  return <a className="vet-mark" href="#inicio" aria-label={`Inicio de ${site.name}`}><span>VETERINARIA</span><strong>BAJA JR</strong><small>cuidado cercano</small></a>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };
 
 export default function Page() {
-  return (
-    <main className="site site-veterinaria-baja-jr" style={{ '--accent': site.accent }}>
+  return <main className="vet-page" id="inicio">
+    <header className="vet-header soft"><Mark /><div className="vet-open"><i /> atención local</div><nav><a href="#servicios">Servicios</a><a href="#confianza">Confianza</a><a href="#visita">Visita</a></nav><a className="vet-call" href={phoneHref}>Llamar ↗</a></header>
 
-      <header className="vet-header shell" id="inicio"><Brand /><span className="vet-open">ATENCIÓN LOCAL</span><a href="#primero">Necesito ayuda ↗</a></header>
-      <section className="vet-hero shell"><div className="vet-copy"><p className="vet-label">{site.category}</p><h1>Cuando ellos no pueden decirlo, tú necesitas un camino claro.</h1><p>{site.intro}</p><a className="vet-cta" href="#primero">Ver atención <span>↓</span></a></div><div className="vet-shield"><span>BAJA</span><strong>JR</strong><small>cuidado cercano</small></div></section>
-      <section className="vet-first shell" id="primero"><div className="vet-heading"><p className="vet-label">PRIMERO ESTO</p><h2>Encuentra la atención que necesitas.</h2></div><div className="vet-paths">{site.highlights.concat(site.services).map((item,index)=><article key={item}><span className="vet-number">0{index+1}</span><h3>{item}</h3><p>{index===0?'Consulta y valoración.':index===1?'Ubicación y contacto directo.':'Reseñas y seguimiento.'}</p><a href={phoneHref || mapUrl}>Consultar ↗</a></article>)}</div></section>
-      <section className="vet-contact shell"><div><p className="vet-label">VISITA</p><h2>{site.name}</h2><p>{site.address}</p><LocalNote /></div><ContactLinks label="Veterinaria Baja Jr" /></section><footer className="vet-footer shell"><Brand compact /><span>Cuidado cercano para quienes esperan en casa.</span></footer>
+    <section className="vet-hero soft"><div className="vet-hero-photo"><img src={site.gallery[0].src} alt={site.gallery[0].alt} /><span>Foto pública · La Mesa</span></div><div className="vet-hero-copy"><p className="vet-kicker">Veterinaria · mascotas</p><h1>Cuida a quien<br /><em>te espera.</em></h1><p>{site.intro}</p><div className="vet-actions"><a className="vet-primary" href="#servicios">Ver atención <span>↓</span></a><a href={mapUrl} target="_blank" rel="noreferrer">Cómo llegar ↗</a></div></div></section>
 
-    </main>
-  );
+    <section className="vet-facts soft"><div><strong>164</strong><span>reseñas públicas</span></div><div><strong>121</strong><span>con cinco estrellas</span></div><div><strong>09:00</strong><span>abre de lunes a sábado</span></div><div><strong>664</strong><span>902 0356</span></div></section>
+
+    <section className="vet-services soft" id="servicios"><div className="vet-services-head"><p className="vet-kicker">01 / Atención</p><h2>Una visita<br /><em>tranquila.</em></h2><p>Las reseñas públicas mencionan atención a perritas, uñas y estética. Confirma el servicio y la disponibilidad por teléfono.</p></div><div className="vet-service-list">{site.services.map((service, index) => <article key={service.title}><span>0{index + 1}</span><div><h3>{service.title}</h3><p>{service.description}</p></div><a href={phoneHref}>Preguntar ↗</a></article>)}</div></section>
+
+    <section className="vet-confidence soft" id="confianza"><div className="vet-confidence-copy"><p className="vet-kicker">02 / Confianza</p><h2>Trato que<br /><em>se nota.</em></h2><p>{site.reviewSummary}</p><a href={site.mapsProfile} target="_blank" rel="noreferrer">Leer reseñas en Maps ↗</a></div><div className="vet-photo-grid"><figure><img src={site.gallery[1].src} alt={site.gallery[1].alt} /><figcaption>Foto pública de la ficha</figcaption></figure><figure><img src={site.gallery[2].src} alt={site.gallery[2].alt} /><figcaption>Foto pública asociada</figcaption></figure></div></section>
+
+    <section className="vet-visit soft" id="visita"><div><p className="vet-kicker">03 / Ven a la clínica</p><h2>{site.address}</h2><p>{site.hours}</p><p className="vet-note">Confirma el tipo de atención, costo y horario antes de salir.</p></div><div className="vet-visit-actions"><a href={mapUrl} target="_blank" rel="noreferrer">Google Maps ↗</a><a href={phoneHref}>664 902 0356 ↗</a></div></section>
+    <footer className="vet-footer soft"><Mark /><span>Nombre mostrado como texto hasta validar el logo oficial con el negocio.</span></footer>
+  </main>;
 }

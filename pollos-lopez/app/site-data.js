@@ -3,7 +3,7 @@ export const site = {
   "name": "Pollos López",
   "category": "Pollos rostizados · Comida rápida",
   "tag": "Comida para compartir, lista para pedir.",
-  "intro": "Una propuesta de menú y pedido local para que el cliente encuentre opciones, horario y teléfono sin recorrer directorios.",
+  "intro": "Un menú y pedido local para que el cliente encuentre opciones, horario y teléfono sin recorrer directorios.",
   "address": "Blvd. Díaz Ordaz 1945, Tijuana",
   "phone": "",
   "email": "",
@@ -31,5 +31,5 @@ export const site = {
   ],
   "accent": "#F05A47",
   "basePath": process.env.NEXT_PUBLIC_BASE_PATH || '',
-  "demoLabel": "Vista previa de propuesta · datos públicos por confirmar antes de publicar"
+  "demoLabel": "Sitio inicial basado en información pública · confirmar datos antes de la entrega"
 };

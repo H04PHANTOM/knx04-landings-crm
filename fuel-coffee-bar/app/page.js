@@ -5,7 +5,7 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURICompo
 const phoneHref = `tel:${site.phone}`;
 
 function FuelMark() {
-  return <a className="fuel-mark" href="#top" aria-label={`Inicio de ${site.name}`}><span>F</span><b>FUEL<br /><i>coffee bar</i></b></a>;
+  return <a className="fuel-mark" href="#top" aria-label={`Inicio de ${site.name}`}><b>FUEL<br /><i>coffee bar</i></b></a>;
 }
 
 export const metadata = { title: `${site.name} · ${site.category}`, description: site.intro };

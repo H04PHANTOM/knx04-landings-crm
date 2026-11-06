@@ -3,7 +3,7 @@ export const site = {
   "name": "La Cenaduría Casa Topete",
   "category": "Cenaduría · Comida mexicana",
   "tag": "La noche sabe a casa.",
-  "intro": "Una propuesta de menú nocturno que reúne platillos, horarios y contacto en una sola vista.",
+  "intro": "Un menú nocturno que reúne platillos, horarios y contacto en una sola vista.",
   "address": "Tijuana, ubicación según ficha comercial",
   "phone": "+526646616926",
   "email": "lacenaduriacasatopete@gmail.com",
@@ -27,5 +27,5 @@ export const site = {
   ],
   "accent": "#D97B29",
   "basePath": process.env.NEXT_PUBLIC_BASE_PATH || '',
-  "demoLabel": "Vista previa de propuesta · datos públicos por confirmar antes de publicar"
+  "demoLabel": "Sitio inicial basado en información pública · confirmar datos antes de la entrega"
 };

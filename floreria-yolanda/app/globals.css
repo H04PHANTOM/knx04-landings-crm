@@ -53,3 +53,16 @@ h2 { font-size:clamp(35px,5vw,62px); line-height:.97; letter-spacing:-.065em; ma
 .source-links a { color:#F8FFF3; border-bottom:1px solid var(--accent); padding-bottom:2px; }
 .footer { display:flex; justify-content:space-between; gap:20px; padding:25px 0 35px; color:#6F7D70; font:11px ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; }
 @media (max-width: 800px) { .hero { grid-template-columns:1fr; padding-top:76px; } .hero-art { min-height:340px; margin-top:12px; } .art-card-main { right:10%; } .art-card-side { left:7%; } .content-grid { grid-template-columns:1fr; gap:38px; padding:82px 0; } .proof { grid-template-columns:1fr; } .proof-item { border-right:0; border-bottom:1px solid rgba(248,255,243,.16); } .proof-item:last-child { border-bottom:0; } .contact-band, .sources, .footer { flex-direction:column; align-items:flex-start; } .contact-actions, .source-links { justify-content:flex-start; } .service-list { grid-template-columns:1fr; } }
+
+.nav { display:flex; gap:22px; margin-left:auto; }
+.nav a { color:#C2CEC0; font:600 12px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing:.08em; text-transform:uppercase; }
+.nav a:hover { color:var(--accent); }
+.status-dot { margin-left:22px; white-space:nowrap; }
+.art-card-main em { color:var(--accent); font-size:11px; font-style:normal; letter-spacing:.12em; text-transform:uppercase; margin-top:auto; }
+.section-copy { color:#89988A; max-width:360px; line-height:1.55; margin:24px 0 0; }
+.benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:0 0 120px; }
+.benefit-card { border-top:1px solid rgba(248,255,243,.18); padding:22px 0 0; }
+.benefit-card span { color:var(--accent); font:12px ui-monospace,monospace; }
+.benefit-card h3 { font-size:22px; line-height:1.05; letter-spacing:-.04em; margin:38px 0 12px; }
+.benefit-card p { color:#89988A; font-size:13px; line-height:1.55; max-width:270px; margin:0; }
+@media (max-width: 800px) { .topbar { flex-wrap:wrap; gap:16px; } .nav { order:3; width:100%; margin-left:0; } .status-dot { margin-left:auto; } .benefits { grid-template-columns:1fr; padding-bottom:82px; } .benefit-card h3 { margin-top:22px; } }

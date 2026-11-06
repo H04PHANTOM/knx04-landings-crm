@@ -1,7 +1,7 @@
 import { site } from './site-data';
 
 export const metadata = {
-  title: `${site.name} · KNX04`,
+  title: `${site.name}`,
   description: site.intro,
 };
 

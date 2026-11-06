@@ -6,7 +6,6 @@ const phoneHref = site.phone ? `tel:${site.phone}` : null;
 
 function Brand() {
   return <a className="milpar-brand" href="#inicio" aria-label={`Inicio de ${site.name}`}>
-    <span className="milpar-mark" aria-hidden="true">M</span>
     <span><b>{site.name}</b><small>{site.category}</small></span>
   </a>;
 }

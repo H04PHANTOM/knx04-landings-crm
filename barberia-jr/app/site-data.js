@@ -8,6 +8,7 @@ export const site = {
   "phone": "",
   "email": "",
   "website": "https://citasbarberiajr.online/",
+  "logoUrl": "https://citasbarberiajr.online/images/logo.png?v=2",
   "social": "Perfil social por confirmar",
   "hours": "Consulta la agenda en el sitio oficial de citas.",
   "highlights": [

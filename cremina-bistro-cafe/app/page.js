@@ -9,28 +9,61 @@ function Crest() {
   return <a className="cremina-crest" href="#inicio" aria-label={`Inicio de ${site.name}`}><strong>CREMINA</strong><small>bistro · café</small></a>;
 }
 
-function RouteLink({ children }) {
-  return <a className="cremina-route-link" href={mapUrl} target="_blank" rel="noreferrer">{children}<span aria-hidden="true">↗</span></a>;
+function RouteLink({ children, className = '' }) {
+  return <a className={`cremina-route-link ${className}`.trim()} href={mapUrl} target="_blank" rel="noreferrer">{children}<span aria-hidden="true">↗</span></a>;
+}
+
+function Stat({ value, label }) {
+  return <div className="cremina-stat"><strong>{value}</strong><span>{label}</span></div>;
 }
 
 export default function Page() {
   return (
     <main className="cremina-site" id="inicio">
-      <header className="cremina-header"><Crest /><nav aria-label="Navegación principal"><a href="#carta">Carta</a><a href="#ritmos">Ritmos del día</a><a href="#espacio">El espacio</a><a href="#visita">Visítanos</a></nav><span className="cremina-status">PLAZA LAS BRISAS · L42</span></header>
+      <header className="cremina-header">
+        <Crest />
+        <nav aria-label="Navegación principal"><a href="#carta">Carta</a><a href="#fotos">Fotos</a><a href="#resenas">Reseñas</a><a href="#visita">Visítanos</a></nav>
+        <RouteLink>Cómo llegar</RouteLink>
+      </header>
 
-      <section className="cremina-opening" aria-labelledby="cremina-title"><div className="cremina-opening-copy"><p className="cremina-overline">CAFÉ · DESAYUNOS · COMIDA</p><h1 id="cremina-title">Una mesa para<br /><em>quedarte.</em></h1><p>{site.intro}</p><div className="cremina-opening-actions"><a className="cremina-ink-button" href="#carta">Abrir la carta</a><RouteLink>Cómo llegar al local</RouteLink></div></div><div className="cremina-analog" aria-label="Composición visual de una mesa de café"><div className="cremina-clock"><span>07</span><i>:</i><span>00</span><small>abre la mañana</small></div><div className="cremina-saucer" /><div className="cremina-cup" /><span className="cremina-table-label">L42 / PLAZA LAS BRISAS</span></div></section>
+      <section className="cremina-hero" aria-labelledby="cremina-title">
+        <div className="cremina-hero-photo">
+          <img src={site.gallery[0].src} alt={site.gallery[0].alt} />
+          <div className="cremina-photo-tag"><span>FOTO PÚBLICA</span><b>El comedor de Cremina</b><small>verificar atribución al aprobar la publicación</small></div>
+        </div>
+        <div className="cremina-hero-copy">
+          <p className="cremina-kicker">DESAYUNOS · CAFÉ · COMIDA</p>
+          <h1 id="cremina-title">Un lugar<br /><em>para quedarte.</em></h1>
+          <p className="cremina-hero-lede">La mesa, el menú y la ruta juntos. Cremina está dentro de Plaza Las Brisas, con desayunos, comida y café para quedarse o pedir para llevar.</p>
+          <div className="cremina-hero-actions"><a className="cremina-primary" href="#carta">Ver la carta</a><RouteLink>Ir a Plaza Las Brisas</RouteLink></div>
+          <div className="cremina-stats"><Stat value={site.rating} label={`${site.reviewCount} reseñas en Google`} /><Stat value={site.priceRange} label="por persona" /><Stat value="L42" label="Plaza Las Brisas" /></div>
+        </div>
+      </section>
 
-      <section className="cremina-dayparts" id="ritmos" aria-labelledby="dayparts-title"><div className="cremina-day-head"><span className="cremina-num">01</span><div><p className="cremina-overline">RITMOS DEL DÍA</p><h2 id="dayparts-title">Ven por lo que<br /><em>se te antoje.</em></h2></div><p>Una estructura de consulta rápida para que cada visitante encuentre el momento que busca.</p></div><div className="cremina-day-grid"><article><span>07—11</span><h3>La primera taza</h3><p>Café y desayunos para empezar sin prisa.</p><b>MAÑANA</b></article><article><span>11—16</span><h3>La mesa servida</h3><p>Comida, lonches y algo dulce para acompañar.</p><b>MEDIODÍA</b></article><article><span>16—20</span><h3>La sobremesa</h3><p>Un postre, una bebida y un rato para quedarse.</p><b>TARDE</b></article></div></section>
+      <section className="cremina-quickbar" aria-label="Servicios confirmados en la ficha pública"><span>CONSUMO EN EL LUGAR</span><span>PARA LLEVAR</span><span>DESAYUNO Y BRUNCH</span><span>TARJETAS DE CRÉDITO</span></section>
 
-      <section className="cremina-verified" aria-label="Datos públicos consultados"><div><span className="cremina-num">FICHA PÚBLICA</span><strong>{site.rating}</strong><small>{site.reviewCount} reseñas en Google</small></div><div><b>Precio medio</b><span>{site.priceRange}</span></div><div><b>Se puede consultar</b><span>{site.verifiedFeatures.join(' · ')}</span></div></section>
+      <section className="cremina-menu" id="carta" aria-labelledby="menu-title">
+        <div className="cremina-menu-intro"><p className="cremina-kicker">CARTA VISIBLE</p><h2 id="menu-title">Pide algo<br /><em>que se antoje.</em></h2><p>Estos nombres y precios se leen en la carta fotografiada por visitantes. La disponibilidad puede cambiar; la landing deja la decisión a un clic de distancia.</p><RouteLink>Ver ubicación</RouteLink></div>
+        <div className="cremina-menu-board">
+          <div className="cremina-menu-board-head"><span>PARA EMPEZAR EL DÍA</span><i>MENÚ PÚBLICO</i></div>
+          <div className="cremina-menu-items">{site.menuItems.map((item) => <article key={item.name}><div><h3>{item.name}</h3><p>{item.description}</p></div><strong>{item.price}</strong></article>)}</div>
+          <div className="cremina-menu-note">Pregunta por la carta completa en el local · precios sujetos a confirmación</div>
+        </div>
+      </section>
 
-      <section className="cremina-menu" id="carta" aria-labelledby="menu-title"><div className="cremina-menu-side"><span className="cremina-num">02</span><p className="cremina-overline">CARTA DE LA CASA</p><h2 id="menu-title">La carta<br /><em>se lee fácil.</em></h2><p>La disponibilidad y los precios se confirman en el local. El botón abre la ubicación para que la visita sea directa.</p><RouteLink>Ver ubicación</RouteLink></div><div className="cremina-menu-list">{site.highlights.map((item,index)=><article key={item}><span>0{index+1}</span><div><h3>{item}</h3><p>{index===0?'Bebidas y desayunos para la primera visita.':index===1?'Una opción para compartir o comer algo completo.':'Plaza Las Brisas, local L42.'}</p></div><b>{index===0?'AM':'PM'}</b></article>)}{site.services.map((item,index)=><article className="cremina-menu-muted" key={item}><span>0{index+4}</span><div><h3>{item}</h3><p>Producto digital que se puede consultar desde el teléfono.</p></div><b>INFO</b></article>)}</div></section>
+      <section className="cremina-photo-story" id="fotos" aria-labelledby="photos-title">
+        <div className="cremina-photo-story-head"><p className="cremina-kicker">FOTOS DE GOOGLE MAPS</p><h2 id="photos-title">Así se ve<br /><em>la visita.</em></h2><p>Interior, bebida, plato y carta. La galería usa material público del perfil del negocio para que la persona sepa qué esperar antes de llegar.</p></div>
+        <div className="cremina-photo-grid">{site.gallery.slice(1).map((photo, index) => <figure key={photo.src} className={`cremina-photo-card photo-card-${index + 1}`}><img src={photo.src} alt={photo.alt} loading="lazy" /><figcaption><b>{photo.label}</b><span>{photo.caption}</span></figcaption></figure>)}</div>
+      </section>
 
-      <section className="cremina-space" id="espacio" aria-labelledby="space-title"><div className="cremina-space-panel"><span className="cremina-num">03</span><p className="cremina-overline">EL ESPACIO</p><h2 id="space-title">Café con<br /><em>ambiente.</em></h2><p>La landing deja el menú arriba y el lugar abajo: una visita física debe poder entenderse antes de llegar.</p></div><div className="cremina-space-grid"><div className="space-tile tile-window"><span>01</span><strong>La ventana</strong><small>luz de mañana</small></div><div className="space-tile tile-table"><span>02</span><strong>La mesa</strong><small>para conversar</small></div><div className="space-tile tile-detail"><span>03</span><strong>El detalle</strong><small>algo dulce</small></div></div></section>
+      <section className="cremina-reviews" id="resenas" aria-labelledby="reviews-title">
+        <div className="cremina-review-lead"><p className="cremina-kicker">LO QUE DICE LA GENTE</p><h2 id="reviews-title">183 visitas<br /><em>que dejaron huella.</em></h2><div className="cremina-rating"><strong>{site.rating}</strong><span>★★★★★</span><small>Google Maps · ficha consultada</small></div></div>
+        <div className="cremina-review-list">{site.reviews.map((review) => <blockquote key={review.text}><p>“{review.text}”</p><footer>{review.meta}</footer></blockquote>)}</div>
+      </section>
 
-      <section className="cremina-visit" id="visita" aria-labelledby="visit-title"><div><span className="cremina-num">04</span><p className="cremina-overline">VISÍTANOS</p><h2 id="visit-title">Nos vemos<br /><em>en L42.</em></h2><p className="cremina-address">{site.address}</p><p className="cremina-hours">{site.hours}</p><RouteLink>Abrir Google Maps</RouteLink></div><a className="cremina-map" href={mapUrl} target="_blank" rel="noreferrer" aria-label="Abrir Cremina Bistro Café en Google Maps"><span className="cremina-map-road map-road-one" /><span className="cremina-map-road map-road-two" /><span className="cremina-map-dot" /><strong>Plaza Las Brisas<br />Local L42</strong><small>Cómo llegar ↗</small></a></section>
+      <section className="cremina-visit" id="visita" aria-labelledby="visit-title"><div className="cremina-visit-copy"><p className="cremina-kicker">ENCUÉNTRALO EN LAS BRISAS</p><h2 id="visit-title">La mesa<br /><em>está aquí.</em></h2><p>{site.address}</p><p className="cremina-hours">{site.hours}</p><div className="cremina-visit-actions"><RouteLink className="cremina-route-button">Abrir Google Maps</RouteLink><a className="cremina-text-link" href="#carta">Volver a la carta ↑</a></div></div><a className="cremina-map" href={mapUrl} target="_blank" rel="noreferrer" aria-label="Abrir Cremina Bistro Café en Google Maps"><span className="cremina-map-road map-road-one" /><span className="cremina-map-road map-road-two" /><span className="cremina-map-pin" /><div><b>Cremina Bistro & Café</b><span>Plaza Las Brisas · L42</span><small>Cómo llegar ↗</small></div></a></section>
 
-      <footer className="cremina-footer"><Crest /><span>Propuesta basada en ficha pública; confirmar logo, carta, horarios y redes antes de publicación.</span><a href="#inicio">↑</a></footer>
+      <footer className="cremina-footer"><Crest /><span>Fotos y datos públicos consultados para esta vista; confirmar logo, carta, redes y autorización antes de la entrega.</span><a href="#inicio">↑</a></footer>
     </main>
   );
 }

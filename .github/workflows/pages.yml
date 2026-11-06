@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: 22
       - run: npm install
+      - name: Definir ruta base de GitHub Pages
+        run: echo "NEXT_PUBLIC_SITE_BASE_PATH=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_ENV"
       - run: npm run build:pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

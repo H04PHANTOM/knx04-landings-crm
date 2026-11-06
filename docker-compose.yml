@@ -1,0 +1,134 @@
+services:
+  cremina-bistro-cafe:
+    build:
+      context: .
+      args:
+        APP_DIR: cremina-bistro-cafe
+    ports:
+      - "127.0.0.1:3101:3000"
+  tacos-varios-lia:
+    build:
+      context: .
+      args:
+        APP_DIR: tacos-varios-lia
+    ports:
+      - "127.0.0.1:3102:3000"
+  floreria-yolanda:
+    build:
+      context: .
+      args:
+        APP_DIR: floreria-yolanda
+    ports:
+      - "127.0.0.1:3103:3000"
+  barberia-jr:
+    build:
+      context: .
+      args:
+        APP_DIR: barberia-jr
+    ports:
+      - "127.0.0.1:3104:3000"
+  tortilleria-milpar:
+    build:
+      context: .
+      args:
+        APP_DIR: tortilleria-milpar
+    ports:
+      - "127.0.0.1:3105:3000"
+  panaderia-pasteleria-ensenada:
+    build:
+      context: .
+      args:
+        APP_DIR: panaderia-pasteleria-ensenada
+    ports:
+      - "127.0.0.1:3106:3000"
+  pasteleria-don-pedro:
+    build:
+      context: .
+      args:
+        APP_DIR: pasteleria-don-pedro
+    ports:
+      - "127.0.0.1:3107:3000"
+  fuel-coffee-bar:
+    build:
+      context: .
+      args:
+        APP_DIR: fuel-coffee-bar
+    ports:
+      - "127.0.0.1:3108:3000"
+  pollos-lopez:
+    build:
+      context: .
+      args:
+        APP_DIR: pollos-lopez
+    ports:
+      - "127.0.0.1:3109:3000"
+  el-sazon-de-mary:
+    build:
+      context: .
+      args:
+        APP_DIR: el-sazon-de-mary
+    ports:
+      - "127.0.0.1:3110:3000"
+  pradera-el-cafe:
+    build:
+      context: .
+      args:
+        APP_DIR: pradera-el-cafe
+    ports:
+      - "127.0.0.1:3111:3000"
+  veterinaria-baja-jr:
+    build:
+      context: .
+      args:
+        APP_DIR: veterinaria-baja-jr
+    ports:
+      - "127.0.0.1:3112:3000"
+  blue-barber:
+    build:
+      context: .
+      args:
+        APP_DIR: blue-barber
+    ports:
+      - "127.0.0.1:3113:3000"
+  carniceria-el-chaparral:
+    build:
+      context: .
+      args:
+        APP_DIR: carniceria-el-chaparral
+    ports:
+      - "127.0.0.1:3114:3000"
+  ferreteria-el-clavo:
+    build:
+      context: .
+      args:
+        APP_DIR: ferreteria-el-clavo
+    ports:
+      - "127.0.0.1:3115:3000"
+  los-cangrejos:
+    build:
+      context: .
+      args:
+        APP_DIR: los-cangrejos
+    ports:
+      - "127.0.0.1:3116:3000"
+  cenaduria-casa-topete:
+    build:
+      context: .
+      args:
+        APP_DIR: cenaduria-casa-topete
+    ports:
+      - "127.0.0.1:3117:3000"
+  la-super-torta:
+    build:
+      context: .
+      args:
+        APP_DIR: la-super-torta
+    ports:
+      - "127.0.0.1:3118:3000"
+  tacos-jalisco:
+    build:
+      context: .
+      args:
+        APP_DIR: tacos-jalisco
+    ports:
+      - "127.0.0.1:3119:3000"

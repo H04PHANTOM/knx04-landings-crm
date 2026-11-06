@@ -31,5 +31,5 @@ export const site = {
   ],
   "accent": "#C9895B",
   "basePath": process.env.NEXT_PUBLIC_BASE_PATH || '',
-  "demoLabel": "Vista previa de propuesta · datos públicos por confirmar antes de publicar"
+  "demoLabel": "Sitio inicial basado en información pública · confirmar datos antes de la entrega"
 };
